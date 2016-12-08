@@ -31,11 +31,9 @@ bool Application2D::startup() {
 
 	std::fstream * file = new std::fstream();
 	file->open("test.text", std::ios_base::out);
-	if (file->is_open())
-	{
-		file << "Hello World" << endl;
-	}
+	if (file->is_open()) *file << "Hello World" << std::endl;
 	file->close();
+
 	return true;
 }
 
@@ -69,7 +67,7 @@ void Application2D::update(float deltaTime) {
 		m_cameraX += 500.0f * deltaTime;
 
 	//use wsad to move the player
-	/*if (input->isKeyDown(aie::INPUT_KEY_W))*/
+	if (input->isKeyDown(aie::INPUT_KEY_W))
 		
 
 	// example of audio
