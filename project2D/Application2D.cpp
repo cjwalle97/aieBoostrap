@@ -2,6 +2,9 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "Player.h"
+#include <iostream>
+#include <fstream>
 
 Application2D::Application2D() {
 
@@ -14,9 +17,9 @@ Application2D::~Application2D() {
 bool Application2D::startup() {
 	
 	m_2dRenderer = new aie::Renderer2D();
-
+	
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
-	m_shipTexture = new aie::Texture("./textures/ship.png");
+	m_playerTexture = new aie::Texture("./textures/ship.png");
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 
@@ -26,6 +29,13 @@ bool Application2D::startup() {
 	m_cameraY = 0;
 	m_timer = 0;
 
+	std::fstream * file = new std::fstream();
+	file->open("test.text", std::ios_base::out);
+	if (file->is_open())
+	{
+		file << "Hello World" << endl;
+	}
+	file->close();
 	return true;
 }
 
@@ -34,7 +44,7 @@ void Application2D::shutdown() {
 	delete m_audio;
 	delete m_font;
 	delete m_texture;
-	delete m_shipTexture;
+	delete m_playerTexture;
 	delete m_2dRenderer;
 }
 
@@ -57,6 +67,10 @@ void Application2D::update(float deltaTime) {
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
 		m_cameraX += 500.0f * deltaTime;
+
+	//use wsad to move the player
+	/*if (input->isKeyDown(aie::INPUT_KEY_W))*/
+		
 
 	// example of audio
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
@@ -84,7 +98,7 @@ void Application2D::draw() {
 
 	// demonstrate spinning sprite
 	m_2dRenderer->setUVRect(0,0,1,1);
-	m_2dRenderer->drawSprite(m_shipTexture, 600, 400, 0, 0, m_timer, 1);
+	m_2dRenderer->drawSprite(m_playerTexture, 600, 400, 0, 0, m_timer, 1);
 
 	// draw a thin line
 	m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);
