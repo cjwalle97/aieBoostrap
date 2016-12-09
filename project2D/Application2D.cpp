@@ -1,8 +1,7 @@
 #include "Application2D.h"
 #include "Texture.h"
 #include "Font.h"
-#include "Input.h"
-#include "Player.h"
+#include "Input.h" 
 #include <iostream>
 #include <fstream>
 
@@ -15,7 +14,10 @@ Application2D::~Application2D() {
 }
 
 bool Application2D::startup() {
-	
+	float x = getWindowWidth() / 2.0f;
+	float y = getWindowHeight() / 2.0f;
+	destination = Vec2(x + 10, y + 10);
+	p = new Player(Vec2(x, y));
 	m_2dRenderer = new aie::Renderer2D();
 	
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
@@ -68,7 +70,16 @@ void Application2D::update(float deltaTime) {
 
 	//use wsad to move the player
 	if (input->isKeyDown(aie::INPUT_KEY_W))
-		
+		p->AddForce(Vec2(0, 1) * 10.0f);
+	
+	if (input->isKeyDown(aie::INPUT_KEY_S))
+		p->AddForce(Vec2(0, -1) * 10.0f);
+	
+	if (input->isKeyDown(aie::INPUT_KEY_D))
+		p->AddForce(Vec2(1, 0)* 10.0f);
+
+	if (input->isKeyDown(aie::INPUT_KEY_A))
+		p->AddForce(Vec2(-1, 0)* 10.0f);
 
 	// example of audio
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
@@ -77,6 +88,10 @@ void Application2D::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+	Vec2 seek = destination - p->position;
+	Vec2 seekDirection = seek.Normalize();
+	p->AddForce(seekDirection * 5.0f);
+	p->Update(deltaTime);
 }
 
 void Application2D::draw() {
@@ -88,15 +103,11 @@ void Application2D::draw() {
 	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
 
 	// begin drawing sprites
-	m_2dRenderer->begin();
+	m_2dRenderer->begin();	
 
-	// demonstrate animation
-	m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8);
-	m_2dRenderer->drawSprite(m_texture, 200, 200, 100, 100);
-
-	// demonstrate spinning sprite
+	// draw player
 	m_2dRenderer->setUVRect(0,0,1,1);
-	m_2dRenderer->drawSprite(m_playerTexture, 600, 400, 0, 0, m_timer, 1);
+	m_2dRenderer->drawSprite(m_playerTexture, p->position.x, p->position.y, 0, 0, 0, 1);
 
 	// draw a thin line
 	m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);

@@ -4,9 +4,10 @@
 class Vec2
 {
 private:
+	
+public:
 	float x;
 	float y;
-public:
 	Vec2() {};
 	Vec2(float a, float b);
 	Vec2 operator + (Vec2 other);

@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Audio.h"
+#include "Player.h"
+
 
 class Application2D : public aie::Application {
 public:
@@ -15,6 +17,8 @@ public:
 
 	virtual void update(float deltaTime);
 	virtual void draw();
+	Player * p;
+	Vec2 destination;
 
 protected:
 
@@ -26,4 +30,5 @@ protected:
 
 	float m_cameraX, m_cameraY;
 	float m_timer;
+	
 };
