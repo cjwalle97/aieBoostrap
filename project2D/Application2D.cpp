@@ -55,31 +55,44 @@ void Application2D::update(float deltaTime) {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
-	// use arrow keys to move camera
-	if (input->isKeyDown(aie::INPUT_KEY_UP))
-		m_cameraY += 500.0f * deltaTime;
+	//// use arrow keys to move camera
+	//if (input->isKeyDown(aie::INPUT_KEY_UP))
+	//	m_cameraY += 500.0f * deltaTime;
 
-	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-		m_cameraY -= 500.0f * deltaTime;
+	//if (input->isKeyDown(aie::INPUT_KEY_DOWN))
+	//	m_cameraY -= 500.0f * deltaTime;
 
-	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
-		m_cameraX -= 500.0f * deltaTime;
+	//if (input->isKeyDown(aie::INPUT_KEY_LEFT))
+	//	m_cameraX -= 500.0f * deltaTime;
 
-	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-		m_cameraX += 500.0f * deltaTime;
+	//if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
+	//	m_cameraX += 500.0f * deltaTime;
 
 	//use wsad to move the player
 	if (input->isKeyDown(aie::INPUT_KEY_W))
-		p->AddForce(Vec2(0, 1) * 10.0f);
+		p->AddForce(Vec2(0, 5) * 10.0f);
 	
 	if (input->isKeyDown(aie::INPUT_KEY_S))
-		p->AddForce(Vec2(0, -1) * 10.0f);
+		p->AddForce(Vec2(0, -5) * 10.0f);
 	
 	if (input->isKeyDown(aie::INPUT_KEY_D))
-		p->AddForce(Vec2(1, 0)* 10.0f);
+		p->AddForce(Vec2(5, 0)* 10.0f);
 
 	if (input->isKeyDown(aie::INPUT_KEY_A))
-		p->AddForce(Vec2(-1, 0)* 10.0f);
+		p->AddForce(Vec2(-5, 0)* 10.0f);
+
+	//allow for 5* the normal Vertical Speed when the Spacebar is held down
+	if (input->isKeyDown(aie::INPUT_KEY_SPACE))
+	{
+		if (input->isKeyDown(aie::INPUT_KEY_D))
+			p->AddForce(Vec2(15, 0));
+		if (input->isKeyDown(aie::INPUT_KEY_A))
+			p->AddForce(Vec2(-15, 0));
+	}
+
+	//keeps the Player in the center of the Camera
+	m_cameraX = p->position.x - (getWindowWidth() / 2);
+	m_cameraY = p->position.y - (getWindowHeight() / 2);
 
 	// example of audio
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
@@ -90,7 +103,8 @@ void Application2D::update(float deltaTime) {
 		quit();
 	Vec2 seek = destination - p->position;
 	Vec2 seekDirection = seek.Normalize();
-	p->AddForce(seekDirection * 5.0f);
+	p->AddForce(Vec2(0, -5));
+	//p->AddForce(seekDirection * 5.0f);
 	p->Update(deltaTime);
 }
 
@@ -128,7 +142,7 @@ void Application2D::draw() {
 	char fps[32];
 	sprintf_s(fps, 32, "FPS: %i", getFPS());
 	m_2dRenderer->drawText(m_font, fps, 0, 720 - 32);
-	m_2dRenderer->drawText(m_font, "Press Space for sound!", 0, 720 - 64);
+	m_2dRenderer->drawText(m_font, "WASD To move, Space to Dash", 0, 720 - 64);
 
 	// done drawing sprites
 	m_2dRenderer->end();

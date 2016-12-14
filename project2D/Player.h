@@ -28,15 +28,21 @@ public:
 	{
 		velocity += f;
 	}
+	bool Dead() {
+		if (true)
+		{
+			return alive = false;
+		}
+	}
 	Vec2 position;
 	Vec2 force;
 	Vec2 velocity;
 private:
 	bool alive;
-	
-	
+
+
 	Vec2 m_direction;
 	Vec2 m_force;
 	float m_speed;
-	
+
 };
