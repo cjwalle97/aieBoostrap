@@ -28,12 +28,6 @@ public:
 	{
 		velocity += f;
 	}
-	bool Dead() {
-		if (true)
-		{
-			return alive = false;
-		}
-	}
 	Vec2 position;
 	Vec2 force;
 	Vec2 velocity;

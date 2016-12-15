@@ -55,39 +55,30 @@ void Application2D::update(float deltaTime) {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
-	//// use arrow keys to move camera
-	//if (input->isKeyDown(aie::INPUT_KEY_UP))
-	//	m_cameraY += 500.0f * deltaTime;
-
-	//if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-	//	m_cameraY -= 500.0f * deltaTime;
-
-	//if (input->isKeyDown(aie::INPUT_KEY_LEFT))w
-	//	m_cameraX -= 500.0f * deltaTime;
-
-	//if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-	//	m_cameraX += 500.0f * deltaTime;
-
 	//use wsad to move the player
 	if (input->isKeyDown(aie::INPUT_KEY_W))
-		p->AddForce(Vec2(0, 5) * 10.0f);
-	
+		p->AddForce(Vec2(0, 1) * 10.0f);
+
 	if (input->isKeyDown(aie::INPUT_KEY_S))
-		p->AddForce(Vec2(0, -5) * 10.0f);
-	
+		p->AddForce(Vec2(0, -1) * 10.0f);
+
 	if (input->isKeyDown(aie::INPUT_KEY_D))
-		p->AddForce(Vec2(5, 0)* 10.0f);
+		p->AddForce(Vec2(1, 0)* 10.0f);
 
 	if (input->isKeyDown(aie::INPUT_KEY_A))
-		p->AddForce(Vec2(-5, 0)* 10.0f);
+		p->AddForce(Vec2(-1, 0)* 10.0f);
 
-	//allow for 5* the normal Horizontal Speed when the Spacebar is held down
+	//allow for 5* the normal Speed when the Spacebar is held down
 	if (input->isKeyDown(aie::INPUT_KEY_SPACE))
 	{
+		if (input->isKeyDown(aie::INPUT_KEY_W))
+			p->AddForce(Vec2(0, 1)* 50.0f);
+		if (input->isKeyDown(aie::INPUT_KEY_S))
+			p->AddForce(Vec2(0, -1)* 50.0f);
 		if (input->isKeyDown(aie::INPUT_KEY_D))
-			p->AddForce(Vec2(15, 0));
+			p->AddForce(Vec2(1, 0)* 50.0f);
 		if (input->isKeyDown(aie::INPUT_KEY_A))
-			p->AddForce(Vec2(-15, 0));
+			p->AddForce(Vec2(-1, 0)* 50.0f);
 	}
 
 	//keeps the Player in the center of the Camera
@@ -103,7 +94,6 @@ void Application2D::update(float deltaTime) {
 		quit();
 	Vec2 seek = destination - p->position;
 	Vec2 seekDirection = seek.Normalize();
-	/*p->AddForce(Vec2(0, -5));*/
 	p->AddForce(seekDirection * 5.0f);
 	p->Update(deltaTime);
 }
@@ -126,6 +116,10 @@ void Application2D::draw() {
 	// draw a thin line
 	m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);
 
+	// draw a small blue circle that will act as the Destination for the Player to orbit around
+	m_2dRenderer->setRenderColour(0, 0, 1, 1);
+	m_2dRenderer->drawCircle(destination.x, destination.y, 50, 1);
+
 	// draw a moving purple circle
 	m_2dRenderer->setRenderColour(1, 0, 1, 1);
 	m_2dRenderer->drawCircle(sin(m_timer) * 100 + 600, 150, 50);
@@ -142,7 +136,7 @@ void Application2D::draw() {
 	char fps[32];
 	sprintf_s(fps, 32, "FPS: %i", getFPS());
 	m_2dRenderer->drawText(m_font, fps, 0, 720 - 32);
-	m_2dRenderer->drawText(m_font, "WASD To move, Space to Dash", 0, 720 - 64);
+	m_2dRenderer->drawText(m_font, "WASD To move, Space to increase movement speed", 0, 720 - 64);
 
 	// done drawing sprites
 	m_2dRenderer->end();
