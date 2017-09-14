@@ -13,8 +13,9 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DEA49362-B428-4215-8D64-4EA0B4FF0858}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DirectLighting</RootNamespace>
+    <RootNamespace>4.DirectLighting</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>4.DirectLighting</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
