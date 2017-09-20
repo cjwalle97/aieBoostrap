@@ -6,20 +6,26 @@ using glm::vec4;
 using glm::mat4;
 using aie::Gizmos;
 
-DirectLightingApp::DirectLightingApp() {
+DirectLightingApp::DirectLightingApp() 
+{
 
 }
 
-DirectLightingApp::~DirectLightingApp() {
+DirectLightingApp::~DirectLightingApp() 
+{
 
 }
 
-bool DirectLightingApp::startup() {
+bool DirectLightingApp::startup() 
+{
 	
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	// initialise gizmo primitive counts
 	Gizmos::create(10000, 10000, 10000, 10000);
+
+
+
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
@@ -28,12 +34,14 @@ bool DirectLightingApp::startup() {
 	return true;
 }
 
-void DirectLightingApp::shutdown() {
+void DirectLightingApp::shutdown() 
+{
 
 	Gizmos::destroy();
 }
 
-void DirectLightingApp::update(float deltaTime) {
+void DirectLightingApp::update(float deltaTime) 
+{
 
 	// wipe the gizmos clean for this frame
 	Gizmos::clear();
@@ -60,7 +68,8 @@ void DirectLightingApp::update(float deltaTime) {
 		quit();
 }
 
-void DirectLightingApp::draw() {
+void DirectLightingApp::draw() 
+{
 
 	// wipe the screen to the background colour
 	clearScreen();
