@@ -1,8 +1,5 @@
 #include "DirectLightingApp.h"
-#include "Gizmos.h"
-#include "Input.h"
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
+
 
 using glm::vec3;
 using glm::vec4;
@@ -67,9 +64,23 @@ void DirectLightingApp::draw() {
 
 	// wipe the screen to the background colour
 	clearScreen();
-
+	
 	// update perspective based on screen size
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
+	
+	// ImGui
+	ImGui::Begin("Lighting");
+	ImGui::Text("This Works");
+	if (ImGui::Button("Spot Light"))
+	{
+
+	}
+	if (ImGui::Button("Directional Lighting"))
+	{
+
+	}
+	ImGui::End();
+
 }

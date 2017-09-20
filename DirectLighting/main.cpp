@@ -1,5 +1,6 @@
 #include "DirectLightingApp.h"
 
+
 int main() {
 	
 	auto app = new DirectLightingApp();
