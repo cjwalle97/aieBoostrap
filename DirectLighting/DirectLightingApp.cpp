@@ -26,6 +26,7 @@ bool DirectLightingApp::startup()
 	Gizmos::create(10000, 10000, 10000, 10000);
 
 	shader->load("/shaders/phong.vert", GL_VERTEX_SHADER);
+	shader->load("/shaders/phong.frag", GL_FRAGMENT_SHADER);
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
