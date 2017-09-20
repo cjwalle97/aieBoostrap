@@ -18,14 +18,14 @@ DirectLightingApp::~DirectLightingApp()
 
 bool DirectLightingApp::startup() 
 {
-	
+	Shader* shader = new Shader();
+
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	// initialise gizmo primitive counts
 	Gizmos::create(10000, 10000, 10000, 10000);
 
-
-
+	shader->load("/shaders/phong.vert", GL_VERTEX_SHADER);
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));

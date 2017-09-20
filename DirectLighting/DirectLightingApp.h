@@ -2,6 +2,7 @@
 #include "Gizmos.h"
 #include "Input.h"
 #include "Application.h"
+#include "Shader.h"
 
 #include <imgui_glfw3.h>
 #include <glm/glm.hpp>
