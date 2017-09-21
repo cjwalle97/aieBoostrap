@@ -3,6 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <gl_core_4_4.h>
+#include <glm/vec4.hpp>
+#include <glm/vec2.hpp>
 
 class Shader
 {

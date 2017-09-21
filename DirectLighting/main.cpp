@@ -1,9 +1,9 @@
-#include "DirectLightingApp.h"
+#include "LightingApplication.h"
 
 
 int main() {
 	
-	auto app = new DirectLightingApp();
+	auto app = new LightingApplication();
 	app->run("AIE", 1280, 720, false);
 	delete app;
 
