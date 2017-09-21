@@ -15,7 +15,7 @@ LightingApplication::~LightingApplication()
 {
 
 }
-
+unsigned VAO, VBO, IBO, INDEXCOUNT;
 bool LightingApplication::startup()
 {
 	m_shader = new Shader();
@@ -23,14 +23,21 @@ bool LightingApplication::startup()
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	// initialise gizmo primitive counts
-	Gizmos::create(10000, 10000, 10000, 10000);
+	Gizmos::create(10,10,10,10);
 
-	m_shader->load("/shaders/phong.vert", GL_VERTEX_SHADER);
-	m_shader->load("/shaders/phong.frag", GL_FRAGMENT_SHADER);
+	m_shader->load("./shaders/phong.vert", GL_VERTEX_SHADER);
+	m_shader->load("./shaders/phong.frag", GL_FRAGMENT_SHADER);
+
+	m_shader->attach();
+
+	glUniform3fv(m_shader->getUniform("LightDir"), 1, glm::value_ptr(glm::vec3(0, -1, 0)));
+	glUniform3fv(m_shader->getUniform("LightColor"), 1, glm::value_ptr(glm::vec3(0.25f, 1.f, 1.f)));
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
+
+	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
 	return true;
 }
@@ -69,9 +76,7 @@ void LightingApplication::update(float deltaTime)
 		quit();
 }
 
-unsigned int msegments = 3;
-unsigned int mrings = 4;
-unsigned int mindexcount;
+
 
 void LightingApplication::draw()
 {
@@ -81,16 +86,22 @@ void LightingApplication::draw()
 	// update perspective based on screen size
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
 
+	m_viewMatrix = glm::lookAt(glm::vec3(10, 10, 10), glm::vec3(0), glm::vec3(0, 1, 0));
+	auto modelMatrix = glm::scale(glm::vec3(5));
+	auto mvp = m_projectionMatrix * m_viewMatrix * modelMatrix;
+
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
+	m_shader->Bind();
+	glUniformMatrix4fv(m_shader->getUniform("ProjectionViewModel"),1, false, glm::value_ptr(mvp));
+	
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, INDEXCOUNT, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+	m_shader->Unbind();
 	// ImGui
 	ImGui::Begin("Lighting");
 	ImGui::Text("This Works");
-	if (ImGui::Button("Generate Sphere"))
-	{
-		generateSphere(msegments, mrings, m_mesh->m_vao, m_mesh->m_vbo, m_mesh->m_ibo, mindexcount);
-		printf("Sphere generated.");
-	}
 	if (ImGui::Button("Spot Light"))
 	{
 		printf("Spot Light Generated");
