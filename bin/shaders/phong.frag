@@ -8,7 +8,7 @@ uniform vec4 LightColor;
 
 void main() 
 { 
-float d = max(0, dot(normalize(vPosition.xyz),LightDir ) ); 
-FragColor = vec4(LightColor * vColor * d, 1);
+float d = max(0, dot(normalize(vPosition),LightDir ) ); 
+FragColor = vec4(LightColor * vColor * d);
 
 }
