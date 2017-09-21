@@ -30,8 +30,8 @@ bool LightingApplication::startup()
 
 	m_shader->attach();
 
-	glUniform3fv(m_shader->getUniform("LightDir"), 1, glm::value_ptr(glm::vec3(0, -1, 0)));
-	glUniform3fv(m_shader->getUniform("LightColor"), 1, glm::value_ptr(glm::vec3(0.25f, 1.f, 1.f)));
+	glUniform4fv(m_shader->getUniform("LightDir"), 1, glm::value_ptr(glm::vec4(0, -1, 0, 1.f)));
+	glUniform4fv(m_shader->getUniform("LightColor"), 1, glm::value_ptr(glm::vec4(0.25f, 1.f, 1.f, 1.f)));
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
