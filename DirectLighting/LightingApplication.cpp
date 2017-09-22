@@ -15,7 +15,11 @@ LightingApplication::~LightingApplication()
 {
 
 }
+
 unsigned VAO, VBO, IBO, INDEXCOUNT;
+vec4 lightDir = vec4(0, -1, 0, 1.f);
+vec4 lightColor = vec4(0.25f, 1.f, 1.f, 1.f);
+
 bool LightingApplication::startup()
 {
 	m_shader = new Shader();
@@ -30,8 +34,10 @@ bool LightingApplication::startup()
 
 	m_shader->attach();
 
-	glUniform4fv(m_shader->getUniform("LightDir"), 1, glm::value_ptr(glm::vec4(0, -1, 0, 1.f)));
-	glUniform4fv(m_shader->getUniform("LightColor"), 1, glm::value_ptr(glm::vec4(0.25f, 1.f, 1.f, 1.f)));
+	m_shader->Bind();
+	glUniform4fv(m_shader->getUniform("LightDir"), 1, glm::value_ptr(lightDir));
+	glUniform4fv(m_shader->getUniform("LightColor"), 1, glm::value_ptr(lightColor));
+	m_shader->Unbind();
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
@@ -93,6 +99,9 @@ void LightingApplication::draw()
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
 	m_shader->Bind();
+
+
+
 	glUniformMatrix4fv(m_shader->getUniform("ProjectionViewModel"),1, false, glm::value_ptr(mvp));
 	
 	glBindVertexArray(VAO);
@@ -141,6 +150,7 @@ void LightingApplication::generateSphere(unsigned int segments, unsigned int rin
 
 			vertex->position = glm::vec4(x0 * 0.5f, y0 * 0.5f, z0 * 0.5f, 1);
 			vertex->normal = glm::vec4(x0, y0, z0, 0);
+			vertex->color = glm::vec4(1, 1, 1, 1);
 
 			vertex->tangent = glm::vec4(glm::sin(segment * segmentAngle + glm::half_pi<float>()), 0, glm::cos(segment * segmentAngle + glm::half_pi<float>()), 0);
 
