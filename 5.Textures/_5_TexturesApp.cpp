@@ -3,6 +3,7 @@
 #include "Input.h"
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include <stb_image.h>
 
 using glm::vec3;
 using glm::vec4;
