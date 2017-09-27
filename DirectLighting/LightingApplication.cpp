@@ -26,7 +26,7 @@ bool LightingApplication::startup()
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	// initialise gizmo primitive counts
-	Gizmos::create(10,10,10,10);
+	Gizmos::create(1000,1000,1000,1000);
 
 	m_shader->load("./shaders/phong.vert", GL_VERTEX_SHADER);
 	m_shader->load("./shaders/phong.frag", GL_FRAGMENT_SHADER);
@@ -106,7 +106,13 @@ void LightingApplication::draw()
 	auto modelMatrix = glm::scale(glm::vec3(5));
 	auto mvp = m_projectionMatrix * m_viewMatrix * modelMatrix;
 
+	mat4 pvm = m_projectionMatrix * modelMatrix;
+
 	int matUniform = m_shader->getUniform("ProjectionViewModel");
+	glUniformMatrix4fv(matUniform, 1, GL_FALSE, &pvm[0][0]);
+
+	int lightUniform = m_shader->getUniform("light[0].direction");
+	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
