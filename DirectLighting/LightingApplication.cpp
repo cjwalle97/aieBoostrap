@@ -1,6 +1,5 @@
 #include "LightingApplication.h"
 
-
 using glm::vec3;
 using glm::vec4;
 using glm::mat4;
@@ -47,7 +46,12 @@ bool LightingApplication::startup()
 
 	m_directionalLight.diffuse = vec3(1);
 	m_directionalLight.specular = vec3(1);
-	m_ambientLight = vec3(0.25f);
+	vec3 m_ambientLight = vec3(0.25f);
+
+	m_material.diffuse = vec3(1);
+	m_material.ambient = vec3(1);
+	m_material.specular = vec3(1);
+	m_material.specularPower = 64;
 
 	return true;
 }
@@ -60,6 +64,8 @@ void LightingApplication::shutdown()
 
 void LightingApplication::update(float deltaTime)
 {
+	float time = getTime();
+	m_directionalLight.direction = vec3(sinf(time), 0, cosf(time));
 
 	// wipe the gizmos clean for this frame
 	Gizmos::clear();
@@ -115,14 +121,6 @@ void LightingApplication::draw()
 	// ImGui
 	ImGui::Begin("Lighting");
 	ImGui::Text("This Works");
-	if (ImGui::Button("Spot Light"))
-	{
-		printf("Spot Light Generated");
-	}
-	if (ImGui::Button("Directional Lighting"))
-	{
-		printf("Directional Light Generated");
-	}
 	ImGui::End();
 
 }

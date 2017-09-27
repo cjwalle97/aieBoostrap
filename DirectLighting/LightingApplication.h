@@ -10,14 +10,17 @@
 #include <glm/ext.hpp>
 #include <glm/mat4x4.hpp>
 
+using glm::vec3;
+using glm::vec4;
+
 struct DirectionalLight
 {
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
+	vec3 direction;
 };
 
-vec3 m_ambientLight;
 
 struct Material
 {
