@@ -45,6 +45,10 @@ bool LightingApplication::startup()
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
+	m_directionalLight.diffuse = vec3(1);
+	m_directionalLight.specular = vec3(1);
+	m_ambientLight = vec3(0.25f);
+
 	return true;
 }
 

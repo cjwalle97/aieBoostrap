@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project3D", "Project3D\Proj
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4.DirectLighting", "DirectLighting\DirectLighting.vcxproj", "{DEA49362-B428-4215-8D64-4EA0B4FF0858}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "5.Textures", "5.Textures\5.Textures.vcxproj", "{6973D350-ADF9-4B6B-9F4E-7C8F210C484F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -39,6 +41,10 @@ Global
 		{DEA49362-B428-4215-8D64-4EA0B4FF0858}.Debug|x86.Build.0 = Debug|Win32
 		{DEA49362-B428-4215-8D64-4EA0B4FF0858}.Release|x86.ActiveCfg = Release|Win32
 		{DEA49362-B428-4215-8D64-4EA0B4FF0858}.Release|x86.Build.0 = Release|Win32
+		{6973D350-ADF9-4B6B-9F4E-7C8F210C484F}.Debug|x86.ActiveCfg = Debug|Win32
+		{6973D350-ADF9-4B6B-9F4E-7C8F210C484F}.Debug|x86.Build.0 = Debug|Win32
+		{6973D350-ADF9-4B6B-9F4E-7C8F210C484F}.Release|x86.ActiveCfg = Release|Win32
+		{6973D350-ADF9-4B6B-9F4E-7C8F210C484F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
