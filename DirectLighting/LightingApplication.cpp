@@ -106,6 +106,8 @@ void LightingApplication::draw()
 	auto modelMatrix = glm::scale(glm::vec3(5));
 	auto mvp = m_projectionMatrix * m_viewMatrix * modelMatrix;
 
+	int matUniform = m_shader->getUniform("ProjectionViewModel");
+
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
 	m_shader->Bind();
