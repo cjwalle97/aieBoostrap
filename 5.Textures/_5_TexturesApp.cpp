@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include "_5_TexturesApp.h"
 #include "Gizmos.h"
 #include "Input.h"
