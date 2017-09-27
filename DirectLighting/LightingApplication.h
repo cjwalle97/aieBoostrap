@@ -10,12 +10,30 @@
 #include <glm/ext.hpp>
 #include <glm/mat4x4.hpp>
 
+struct DirectionalLight
+{
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+};
+
+vec3 m_ambientLight;
+
+struct Material
+{
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+	float specularPower;
+};
+
 class LightingApplication : public aie::Application {
 private:
 	// Shader and Mesh pointers
 	Shader* m_shader;
 	Mesh* m_mesh;
-
+	DirectionalLight m_directionalLight;
+	Material m_material;
 public:
 	LightingApplication();
 	virtual ~LightingApplication();
