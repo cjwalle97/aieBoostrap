@@ -1,8 +1,11 @@
 #pragma once
 
+#include "Gizmos.h"
+#include "Input.h"
 #include "Application.h"
-#include <glm/mat4x4.hpp>
+#include <glm/glm.hpp>
 
+#include <imgui_glfw3.h>
 class _5_TexturesApp : public aie::Application 
 {
 public:
