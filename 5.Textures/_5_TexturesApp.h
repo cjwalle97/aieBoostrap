@@ -3,7 +3,8 @@
 #include "Application.h"
 #include <glm/mat4x4.hpp>
 
-class _5_TexturesApp : public aie::Application {
+class _5_TexturesApp : public aie::Application 
+{
 public:
 
 	_5_TexturesApp();
