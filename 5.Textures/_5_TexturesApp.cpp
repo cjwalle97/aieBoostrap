@@ -5,7 +5,8 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <gl_core_4_4.h>
-#include <stb_image.h>
+#include <stb-master\stb.h>
+#include <stb-master\stb_image.h>
 
 using glm::vec3;
 using glm::vec4;
