@@ -1,12 +1,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "_5_TexturesApp.h"
-#include "Gizmos.h"
-#include "Input.h"
 #include "Shader.h"
 #include "Mesh.h"
-#include <glm/glm.hpp>
 #include <glm/ext.hpp>
-#include <gl_core_4_4.h>
 #include <stb_image.h>
 
 using glm::vec3;
@@ -22,8 +18,9 @@ _5_TexturesApp::~_5_TexturesApp() {
 
 }
 
-bool _5_TexturesApp::startup() {
-	
+bool _5_TexturesApp::startup() 
+{
+
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	// initialise gizmo primitive counts
@@ -32,6 +29,7 @@ bool _5_TexturesApp::startup() {
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
+	
 	return true;
 }
 
@@ -78,7 +76,7 @@ void _5_TexturesApp::draw() {
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 
-	int imageWidth = 0, imageHeight = 0, imageFormat = 0;
+	int imageWidth = 100, imageHeight = 100, imageFormat = 1;
 	unsigned char* data = stbi_load(".bin/textures/crate.png", &imageWidth, &imageHeight, &imageFormat, STBI_default);
 
 	glGenTextures(1, &m_texture);
@@ -145,7 +143,7 @@ void _5_TexturesApp::draw() {
 
 	// bind the camera 
 	int loc = glGetUniformLocation(m_program, "projectionViewWorldMatrix"); 
-	glUniformMatrix4fv(loc, 1, GL_FALSE, &(m_camera->getProjectionView()[0][0]));
+	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(m_projectionMatrix * m_viewMatrix));
 
 	// set texture slot 
 	glActiveTexture(GL_TEXTURE0); 

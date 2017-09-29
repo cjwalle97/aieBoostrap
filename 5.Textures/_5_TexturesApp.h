@@ -2,10 +2,10 @@
 
 #include "Gizmos.h"
 #include "Input.h"
-#include "Camera.h"
+
 #include "Application.h"
-#include <glm/glm.hpp>
 #include <imgui_glfw3.h>
+#include <glm/ext.hpp>
 class _5_TexturesApp : public aie::Application 
 {
 private:
@@ -15,7 +15,7 @@ private:
 	unsigned int m_vao;
 	unsigned int m_vbo;
 	unsigned int m_ibo;
-	Camera* m_camera;
+	
 
 public:
 
