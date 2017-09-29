@@ -10,7 +10,7 @@ LightingApplication::LightingApplication()
 
 }
 
-LightingApplication::~LightingApplication() 
+LightingApplication::~LightingApplication()
 {
 
 }

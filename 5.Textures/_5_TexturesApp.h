@@ -2,11 +2,21 @@
 
 #include "Gizmos.h"
 #include "Input.h"
+#include "Camera.h"
 #include "Application.h"
 #include <glm/glm.hpp>
 #include <imgui_glfw3.h>
 class _5_TexturesApp : public aie::Application 
 {
+private:
+
+	unsigned int m_texture;
+	unsigned int m_program;
+	unsigned int m_vao;
+	unsigned int m_vbo;
+	unsigned int m_ibo;
+	Camera* m_camera;
+
 public:
 
 	_5_TexturesApp();
