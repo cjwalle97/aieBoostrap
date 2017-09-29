@@ -2,6 +2,8 @@
 #include "_5_TexturesApp.h"
 #include "Gizmos.h"
 #include "Input.h"
+#include "Shader.h"
+#include "Mesh.h"
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <gl_core_4_4.h>
@@ -37,8 +39,8 @@ bool _5_TexturesApp::startup() {
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 
-	int imageWidth = 0, imageHeight = 0, imageFormat = 0; 
-	unsigned char* data = stbi_load("./data/textures/crate.png", &imageWidth, &imageHeight, &imageFormat, STBI_default);
+	int imageWidth = 5, imageHeight = 1, imageFormat = 5; 
+	unsigned char* data = stbi_load("./bin/textures/crate.png", &imageWidth, &imageHeight, &imageFormat, STBI_default);
 
 	glGenTextures(1, &m_texture); 
 	glBindTexture(GL_TEXTURE_2D, m_texture); 
