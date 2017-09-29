@@ -30,6 +30,17 @@ bool _5_TexturesApp::startup()
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 	
+	int imageWidth = 1000, imageHeight = 1000, imageFormat = 0;
+	unsigned char* data = stbi_load("/bin/textures/crate.png", &imageWidth, &imageHeight, &imageFormat, 0);
+
+	glGenTextures(1, &m_texture);
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	stbi_image_free(data);
+
 	return true;
 }
 
@@ -76,21 +87,9 @@ void _5_TexturesApp::draw() {
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 
-	int imageWidth = 100, imageHeight = 100, imageFormat = 1;
-	unsigned char* data = stbi_load(".bin/textures/crate.png", &imageWidth, &imageHeight, &imageFormat, STBI_default);
-
-	glGenTextures(1, &m_texture);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	stbi_image_free(data);
-
-	const char* vsSource = 
-		"#version 410\n \ layout(location=0) in vec4 position; \ layout(location=1) in vec2 texCoord; \ out vec2 vTexCoord; \ uniform mat4 projectionViewWorldMatrix; \ void main() { \ vTexCoord = texCoord; \ gl_Position= projectionViewWorldMatrix * position;\ }";
-	const char* fsSource = 
-		"#version 410\n \ in vec2 vTexCoord; \ out vec4 fragColor; \ uniform sampler2D diffuse; \ void main() { \ fragColor = texture(diffuse,vTexCoord);\ }";
+	const char* vsSource = "#version 410\n \ layout(location=0) in vec4 position; \ layout(location=1) in vec2 texCoord; \ out vec2 vTexCoord; \ uniform mat4 projectionViewWorldMatrix; \ void main() { \ vTexCoord = texCoord; \ gl_Position= projectionViewWorldMatrix * position;\ }";
+	
+	const char* fsSource = "#version 410\n \ in vec2 vTexCoord; \ out vec4 fragColor; \ uniform sampler2D diffuse; \ void main() { \ fragColor = texture(diffuse,vTexCoord);\ }";
 
 	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, (const char**)&vsSource, 0);
