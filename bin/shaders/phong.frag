@@ -1,11 +1,11 @@
 // fragment shader 
 #version 410 
+
 in vec4 vColor; 
 in vec4 vPosition; 
 uniform vec4 LightDir; 
 uniform vec4 LightColor; 
 out vec4 fragColor;
-
 
 void main() 
 { 

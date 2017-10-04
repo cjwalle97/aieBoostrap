@@ -17,7 +17,7 @@ LightingApplication::~LightingApplication()
 
 unsigned VAO, VBO, IBO, INDEXCOUNT;
 vec4 lightDir = vec4(0, -1, 0, 1.f);
-vec4 lightColor = vec4(0.25f, 1.f, 1.f, 1.f);
+vec4 lightColor = vec4(1.f, 1.f, 1.f, 1.f);
 
 bool LightingApplication::startup()
 {
@@ -113,6 +113,17 @@ void LightingApplication::draw()
 
 	int lightUniform = m_shader->getUniform("light[0].direction");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
+
+	/*
+	int lightUniform = m_shader->getUniform("direction");
+	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
+
+	lightUniform = m_shader->getUniform("Id");
+	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
+
+	lightUniform = m_shader->getUniform("Ia");
+	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
+	*/
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
