@@ -17,7 +17,7 @@ LightingApplication::~LightingApplication()
 
 unsigned VAO, VBO, IBO, INDEXCOUNT;
 vec4 lightDir = vec4(0, -1, 0, 1.f);
-vec4 lightColor = vec4(1.f, 1.f, 1.f, 1.f);
+vec4 lightColor = vec4(0.25f, 1.f, 1.f, 1.f);
 
 bool LightingApplication::startup()
 {
