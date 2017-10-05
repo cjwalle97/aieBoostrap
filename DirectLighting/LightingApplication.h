@@ -36,6 +36,7 @@ private:
 	Shader* m_shader;
 	Mesh* m_mesh;
 	DirectionalLight m_directionalLight;
+	vec4 m_ambientLight;
 	Material m_material;
 public:
 	LightingApplication();

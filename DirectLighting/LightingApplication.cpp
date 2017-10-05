@@ -23,6 +23,7 @@ bool LightingApplication::startup()
 {
 	m_shader = new Shader();
 	m_mesh = new Mesh();
+	m_ambientLight = vec4(1);
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	// initialise gizmo primitive counts
@@ -110,20 +111,17 @@ void LightingApplication::draw()
 
 	int matUniform = m_shader->getUniform("ProjectionViewModel");
 	glUniformMatrix4fv(matUniform, 1, GL_FALSE, &pvm[0][0]);
-
-	int lightUniform = m_shader->getUniform("light[0].direction");
-	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
-
-	/*
+	
 	int lightUniform = m_shader->getUniform("direction");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
 
 	lightUniform = m_shader->getUniform("Id");
-	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
+	glUniform3fv(lightUniform, 1, &m_directionalLight.diffuse[0]);
 
 	lightUniform = m_shader->getUniform("Ia");
-	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
-	*/
+	glUniform3fv(lightUniform, 1, &m_ambientLight[0]);
+	
+
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
