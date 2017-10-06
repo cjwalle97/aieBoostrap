@@ -16,6 +16,7 @@ out vec4 vTangent;
 
 void main()
 {
+	vColor = Color;
 	vPosition = Position;
 	vNormal = Normal;
 	vUV = UV;

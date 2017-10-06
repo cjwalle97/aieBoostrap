@@ -22,7 +22,7 @@ vec4 lightColor = vec4(0.25f, 1.f, 1.f, 1.f);
 bool LightingApplication::startup()
 {
 	m_shader = new Shader();
-	m_mesh = new Mesh();
+
 	m_ambientLight = vec4(1);
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
@@ -45,9 +45,14 @@ bool LightingApplication::startup()
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
+	m_directionalLight.direction = vec3(0, 1, 0);
 	m_directionalLight.diffuse = vec3(1);
 	m_directionalLight.specular = vec3(1);
 	vec3 m_ambientLight = vec3(0.25f);
+
+	vec3 Ia = vec3(1.f, 1.f, 1.f);
+	vec3 Id = vec3(1.f);
+	vec3 Is = vec3(1.f);
 
 	m_material.diffuse = vec3(1);
 	m_material.ambient = vec3(1);
@@ -121,13 +126,9 @@ void LightingApplication::draw()
 	lightUniform = m_shader->getUniform("Ia");
 	glUniform3fv(lightUniform, 1, &m_ambientLight[0]);
 	
-
-
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
 	m_shader->Bind();
-
-
 
 	glUniformMatrix4fv(m_shader->getUniform("ProjectionViewModel"),1, false, glm::value_ptr(mvp));
 	
