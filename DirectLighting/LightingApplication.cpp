@@ -99,8 +99,6 @@ void LightingApplication::update(float deltaTime)
 		quit();
 }
 
-
-
 void LightingApplication::draw()
 {
 	// wipe the screen to the background colour
@@ -162,7 +160,6 @@ void LightingApplication::generateSphere(unsigned int segments, unsigned int rin
 	unsigned int& vao, unsigned int& vbo, unsigned int& ibo,
 	unsigned int& indexCount) 
 {
-
 	unsigned int vertCount = (segments + 1) * (rings + 2);
 	indexCount = segments * (rings + 1) * 6;
 

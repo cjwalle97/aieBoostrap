@@ -25,9 +25,9 @@ void main()
 {
 	vec4 ambient = vec4(Ka, 1) * vec4(Ia, 1);
 	
-	vec4 diffuse = vec4(Kd, 1) * max(0.0f, dot(vec4(direction, 1), vNormal)) * vec4(Id,1);
+	vec4 diffuse = vec4(Kd, 1) * max(0.0f, dot(vec4(direction, 1), vNormal)) * vec4(Id, 1);
 
-	vec4 specular = vec4(Ks, 1) * dot(vUV, Tangent) * Is;
+	vec4 specular = vec4(Ks, 1) * dot(vec4(vUV, 0, 1), vTangent) * vec4(Is, 1);
 
-	FragColor = ambient + diffuse + specular;
+	FragColor = vec4(0.0f, 0.5f, 0.5f, 1.0f);
 }
