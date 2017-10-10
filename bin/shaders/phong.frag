@@ -29,5 +29,5 @@ void main()
 
 	vec4 specular = vec4(Ks, 1) * dot(vec4(vUV, 0, 1), vTangent) * vec4(Is, 1);
 
-	FragColor = vec4(0.0f, 0.5f, 0.5f, 1.0f);
+	FragColor = specular;
 }

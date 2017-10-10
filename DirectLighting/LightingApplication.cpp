@@ -65,7 +65,6 @@ bool LightingApplication::startup()
 
 void LightingApplication::shutdown()
 {
-
 	Gizmos::destroy();
 }
 
@@ -120,7 +119,7 @@ void LightingApplication::draw()
 	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
 
 	lightUniform = m_shader->getUniform("Normal");
-	glUniform4fv(lightUniform, 1, &m_directionalLight.normal[0]);
+	glUniform4fv(lightUniform, 2, &m_directionalLight.normal[0]);
 
 	lightUniform = m_shader->getUniform("Id");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.diffuse[0]);
@@ -172,11 +171,13 @@ void LightingApplication::generateSphere(unsigned int segments, unsigned int rin
 
 	Vertex* vertex = vertices;
 
-	for (unsigned int ring = 0; ring < (rings + 2); ++ring) {
+	for (unsigned int ring = 0; ring < (rings + 2); ++ring) 
+	{
 		float r0 = glm::sin(ring * ringAngle);
 		float y0 = glm::cos(ring * ringAngle);
 
-		for (unsigned int segment = 0; segment < (segments + 1); ++segment, ++vertex) {
+		for (unsigned int segment = 0; segment < (segments + 1); ++segment, ++vertex) 
+		{
 			float x0 = r0 * glm::sin(segment * segmentAngle);
 			float z0 = r0 * glm::cos(segment * segmentAngle);
 
