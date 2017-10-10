@@ -127,20 +127,20 @@ void LightingApplication::draw()
 	lightUniform = m_shader->getUniform("Id");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.diffuse[0]);
 
-	//matUniform = m_shader->getUniform("Kd");
-	//glUniform3fv(matUniform, 1, &m_material.diffuse[0]);
+	matUniform = m_shader->getUniform("Kd");
+	glUniform3fv(matUniform, 1, &m_material.diffuse[0]);
 	
 	lightUniform = m_shader->getUniform("Ia");
 	glUniform3fv(lightUniform, 1, &m_ambientLight[0]);
 
-	//matUniform = m_shader->getUniform("Ka");
-	//glUniform3fv(matUniform, 1, &m_material.ambient[0]);
+	matUniform = m_shader->getUniform("Ka");
+	glUniform3fv(matUniform, 1, &m_material.ambient[0]);
 
 	lightUniform = m_shader->getUniform("Is");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.specular[0]);
 	
-	//matUniform = m_shader->getUniform("Ks");
-	//glUniform3fv(matUniform, 1, &m_material.specular[0]);
+	matUniform = m_shader->getUniform("Ks");
+	glUniform3fv(matUniform, 1, &m_material.specular[0]);
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
