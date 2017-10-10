@@ -31,6 +31,7 @@ void main()
 	vec4 diffuse = vec4(Kd, 1) * max(0.0f, dot(vec4(direction, 1), vNormal)) * vec4(Id,1);
 
 	Ks = vec3(1.f, 1.f, 1.f);
+	//vec4 specular = vec4(Ks, 1) * dot() * Is;
 
 	FragColor = ambient + diffuse;
 	

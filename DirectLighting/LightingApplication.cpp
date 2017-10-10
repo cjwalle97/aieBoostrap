@@ -46,6 +46,7 @@ bool LightingApplication::startup()
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
 	m_directionalLight.direction = vec3(0, 1, 0);
+	m_directionalLight.normal = vec3(0, 1, 0);
 	m_directionalLight.diffuse = vec3(1);
 	m_directionalLight.specular = vec3(1);
 	vec3 m_ambientLight = vec3(0.25f);
@@ -120,12 +121,27 @@ void LightingApplication::draw()
 	int lightUniform = m_shader->getUniform("direction");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
 
+	lightUniform = m_shader->getUniform("Normal");
+	glUniform4fv(lightUniform, 1, &m_directionalLight.normal[0]);
+
 	lightUniform = m_shader->getUniform("Id");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.diffuse[0]);
 
+	//matUniform = m_shader->getUniform("Kd");
+	//glUniform3fv(matUniform, 1, &m_material.diffuse[0]);
+	
 	lightUniform = m_shader->getUniform("Ia");
 	glUniform3fv(lightUniform, 1, &m_ambientLight[0]);
+
+	//matUniform = m_shader->getUniform("Ka");
+	//glUniform3fv(matUniform, 1, &m_material.ambient[0]);
+
+	lightUniform = m_shader->getUniform("Is");
+	glUniform3fv(lightUniform, 1, &m_directionalLight.specular[0]);
 	
+	//matUniform = m_shader->getUniform("Ks");
+	//glUniform3fv(matUniform, 1, &m_material.specular[0]);
+
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
 	m_shader->Bind();
@@ -140,7 +156,6 @@ void LightingApplication::draw()
 	ImGui::Begin("Lighting");
 	ImGui::Text("This Works");
 	ImGui::End();
-
 }
 
 void LightingApplication::generateSphere(unsigned int segments, unsigned int rings,
