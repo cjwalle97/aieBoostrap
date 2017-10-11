@@ -18,16 +18,16 @@ in vec2 vUV;
 in vec4 vTangent;
 
 out vec4 FragColor;
-out vec4 VertColor;
 
 void main()
 {
 	vec4 ambient = vec4(Ka, 1) * vec4(Ia, 1);
 	
-	vec4 diffuseColor = vec4(1.0f, 0.25f, 1.0f, 1) * vec4(0.25, 1.0f, 1.0f, 1);
+	vec4 diffuseColor = vec4(0.25f, 1.f, 1.f, 1.f) * vec4(1.0f, 0.25f, 1.0f, 1.0f);
 	vec4 diffuse = diffuseColor * max(0.0f, dot(vNormal, vec4(-direction, 1)));
 
-	vec4 specular = vec4(Ks, 1) * vec4(Is, 1) * dot(vec4(vUV, 0, 1), vTangent);
+	vec4 specularColor = vec4(1.0f, 1.0f, 1.0f, 1.0f) * vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	vec4 specular = specularColor * dot(vec4(vUV, 0, 1), vTangent);
 
-	FragColor = diffuse;
+	FragColor = vNormal;
 }

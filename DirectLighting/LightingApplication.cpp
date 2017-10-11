@@ -16,8 +16,6 @@ LightingApplication::~LightingApplication()
 }
 
 unsigned VAO, VBO, IBO, INDEXCOUNT;
-vec4 lightDir = vec4(0, -1, 0, 1.f);
-vec4 lightColor = vec4(0.25f, 1.f, 1.f, 1.f);
 
 bool LightingApplication::startup()
 {
@@ -35,8 +33,6 @@ bool LightingApplication::startup()
 	m_shader->attach();
 
 	m_shader->Bind();
-	glUniform4fv(m_shader->getUniform("LightDir"), 1, glm::value_ptr(lightDir));
-	glUniform4fv(m_shader->getUniform("LightColor"), 1, glm::value_ptr(lightColor));
 	m_shader->Unbind();
 
 	// create simple camera transforms
@@ -45,7 +41,7 @@ bool LightingApplication::startup()
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
-	m_directionalLight.direction = vec3(0.0f, -1.f, 0.0f);
+	m_directionalLight.direction = vec3(-1.0f, -1.f, 0.0f);
 	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
 	m_directionalLight.diffuse = vec3(0.25f, 1.0f, 1.0f);
 	m_directionalLight.specular = vec3(1.0f);
