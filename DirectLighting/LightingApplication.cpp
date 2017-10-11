@@ -47,10 +47,6 @@ bool LightingApplication::startup()
 	m_directionalLight.specular = vec3(1.0f);
 	vec3 m_ambientLight = vec3(0.25f);
 
-	//vec3 Ia = vec3(1.f, 1.f, 1.f);
-	//vec3 Id = vec3(1.f);
-	//vec3 Is = vec3(1.f);
-
 	m_material.diffuse = vec3(0.25f, 1.0f, 1.0f);
 	m_material.ambient = vec3(1.f);
 	m_material.specular = vec3(1.f);
