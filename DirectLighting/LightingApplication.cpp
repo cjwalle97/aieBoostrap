@@ -45,17 +45,17 @@ bool LightingApplication::startup()
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
-	m_directionalLight.direction = vec3(0.0f, 1.f, 0.0f);
+	m_directionalLight.direction = vec3(0.0f, -1.f, 0.0f);
 	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
 	m_directionalLight.diffuse = vec3(0.25f, 1.0f, 1.0f);
 	m_directionalLight.specular = vec3(1.0f);
 	vec3 m_ambientLight = vec3(0.25f);
 
-	vec3 Ia = vec3(1.f, 1.f, 1.f);
-	vec3 Id = vec3(1.f);
-	vec3 Is = vec3(1.f);
+	//vec3 Ia = vec3(1.f, 1.f, 1.f);
+	//vec3 Id = vec3(1.f);
+	//vec3 Is = vec3(1.f);
 
-	m_material.diffuse = vec3(1.f);
+	m_material.diffuse = vec3(0.25f, 1.0f, 1.0f);
 	m_material.ambient = vec3(1.f);
 	m_material.specular = vec3(1.f);
 	m_material.specularPower = 64;
@@ -118,9 +118,6 @@ void LightingApplication::draw()
 	
 	int lightUniform = m_shader->getUniform("direction");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[1]);
-
-	lightUniform = m_shader->getUniform("Normal");
-	glUniform4fv(lightUniform, 2, &m_directionalLight.normal[0]);
 
 	lightUniform = m_shader->getUniform("Id");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.diffuse[0]);
