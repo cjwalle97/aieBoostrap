@@ -107,7 +107,10 @@ void LightingApplication::draw()
 
 	int matUniform = m_shader->getUniform("ProjectionViewModel");
 	glUniformMatrix4fv(matUniform, 1, GL_FALSE, &pvm[0][0]);
-	
+
+	matUniform = m_shader->getUniform("Normal");
+	glUniform4fv(matUniform, 1, &m_directionalLight.normal[0]);
+
 	int lightUniform = m_shader->getUniform("direction");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[1]);
 
@@ -128,9 +131,6 @@ void LightingApplication::draw()
 	
 	matUniform = m_shader->getUniform("Ks");
 	glUniform3fv(matUniform, 1, &m_material.specular[0]);
-
-	lightUniform = m_shader->getUniform("Normal");
-	glUniform4fv(lightUniform, 1, &m_directionalLight.normal[0]);
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	

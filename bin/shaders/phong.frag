@@ -21,13 +21,17 @@ out vec4 FragColor;
 
 void main()
 {
+
+	vec3 L = normalize(direction.xyz);
+	vec3 N = normalize(vNormal.xyz);
+
 	vec4 ambient = vec4(Ka, 1) * vec4(Ia, 1);
 	
 	vec4 diffuseColor = vec4(0.25f, 1.f, 1.f, 1.f) * vec4(1.0f, 0.25f, 1.0f, 1.0f);
-	vec4 diffuse = diffuseColor * max(0.0f, dot(vNormal, vec4(-direction, 1)));
+	vec4 diffuse = diffuseColor * max(0.0f, dot(vec4(N, 1.0f), vec4(-L, 1.0f)));
 
 	vec4 specularColor = vec4(1.0f, 1.0f, 1.0f, 1.0f) * vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	vec4 specular = specularColor * dot(vec4(vUV, 0, 1), vTangent);
 
-	FragColor = vNormal;
+	FragColor = vec4(N, 1.0f);
 }
