@@ -18,7 +18,7 @@ void main()
 {
 	vColor = vec4(0.0f, 1.0f ,1.0f, 1.0f);
 	vPosition = Position;
-	vNormal = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	vNormal = Normal;
 	vUV = UV;
 	vTangent = Tangent;
 
