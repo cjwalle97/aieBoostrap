@@ -2,9 +2,9 @@
 #version 410
 
 uniform vec3 direction;
+uniform vec3 Ia;
 uniform vec3 Id;
 uniform vec3 Is;
-uniform vec3 Ia;
 
 uniform vec3 Ka;
 uniform vec3 Kd;
@@ -33,6 +33,5 @@ void main()
 	vec4 specularColor = vec4(1.0f, 1.0f, 1.0f, 1.0f) * vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	vec4 specular = specularColor * dot(vec4(vUV, 0, 1), vTangent);
 
-	FragColor = diffuseColor;
-
+	FragColor = ambient;
 }
