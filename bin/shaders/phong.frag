@@ -27,11 +27,12 @@ void main()
 
 	vec4 ambient = vec4(Ka, 1) * vec4(Ia, 1);
 	
-	vec4 diffuseColor = vec4(0.25f, 1.f, 1.f, 1.f) * vec4(1.0f, 0.25f, 1.0f, 1.0f);
+	vec4 diffuseColor = vec4(Kd, 1.f) * vec4(Id, 1.0f);
 	vec4 diffuse = diffuseColor * max(0.0f, dot(vec4(N, 1.0f), vec4(-L, 1.0f)));
 
 	vec4 specularColor = vec4(1.0f, 1.0f, 1.0f, 1.0f) * vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	vec4 specular = specularColor * dot(vec4(vUV, 0, 1), vTangent);
 
-	FragColor = ;
+	FragColor = diffuseColor;
+
 }

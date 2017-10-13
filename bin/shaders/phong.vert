@@ -1,11 +1,11 @@
 //classic Phong equation
 #version 410
 
-uniform vec4 Position;
-uniform vec4 Color;
-uniform vec4 Normal;
-uniform vec2 UV;
-uniform vec4 Tangent;
+layout (location = 0) in vec4 Position;
+layout (location = 1) in vec4 Color;
+layout (location = 2) in vec4 Normal;
+layout (location = 3) in vec2 UV;
+layout (location = 4) in vec4 Tangent;
 
 uniform mat4 ProjectionViewModel;
 out vec4 vNormal;

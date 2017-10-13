@@ -24,6 +24,17 @@ bool LightingApplication::startup()
 	m_ambientLight = vec4(1);
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
+	m_directionalLight.direction = vec3(0.0f, 1.f, 0.0f);
+	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
+	m_directionalLight.diffuse = vec3(1.0f, 1.0f, 1.0f);
+	m_directionalLight.specular = vec3(1.0f);
+	vec3 m_ambientLight = vec3(0.25f);
+
+	m_material.diffuse = vec3(1.0f, 0.25f, 1.0f);
+	m_material.ambient = vec3(1.f);
+	m_material.specular = vec3(1.f);
+	m_material.specularPower = 64;
+
 	// initialise gizmo primitive counts
 	Gizmos::create(1000,1000,1000,1000);
 
@@ -40,17 +51,6 @@ bool LightingApplication::startup()
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
-
-	m_directionalLight.direction = vec3(-1.0f, -1.f, 0.0f);
-	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
-	m_directionalLight.diffuse = vec3(0.25f, 1.0f, 1.0f);
-	m_directionalLight.specular = vec3(1.0f);
-	vec3 m_ambientLight = vec3(0.25f);
-
-	m_material.diffuse = vec3(0.25f, 1.0f, 1.0f);
-	m_material.ambient = vec3(1.f);
-	m_material.specular = vec3(1.f);
-	m_material.specularPower = 64;
 
 	return true;
 }
@@ -112,7 +112,7 @@ void LightingApplication::draw()
 	glUniform4fv(matUniform, 1, &m_directionalLight.normal[0]);
 
 	int lightUniform = m_shader->getUniform("direction");
-	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[1]);
+	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
 
 	lightUniform = m_shader->getUniform("Id");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.diffuse[0]);
