@@ -27,12 +27,12 @@ bool LightingApplication::startup()
 	m_directionalLight.direction = vec3(0.0f, 1.0f, 0.0f);
 	m_directionalLight.ambient = vec3(0.25f, 1.0f, 1.0f);
 	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
-	m_directionalLight.diffuse = vec3(1.0f);
+	m_directionalLight.diffuse = vec3(1.0f, 0.25f, 1.0f);
 	m_directionalLight.specular = vec3(1.0f);
 	vec3 m_ambientLight = vec3(0.25f);
 
 	m_material.diffuse = vec3(1.0f, 0.25f, 1.0f);
-	m_material.ambient = vec3(1.f);
+	m_material.ambient = vec3(0.25f, 1.0f, 1.0f);
 	m_material.specular = vec3(1.f);
 	m_material.specularPower = 64;
 
