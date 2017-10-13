@@ -24,7 +24,8 @@ bool LightingApplication::startup()
 	m_ambientLight = vec4(1);
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
-	m_directionalLight.direction = vec3(0.0f, 1.f, 0.0f);
+	m_directionalLight.direction = vec3(0.0f, 1.0f, 0.0f);
+	m_directionalLight.ambient = vec3(0.25f, 1.0f, 1.0f);
 	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
 	m_directionalLight.diffuse = vec3(1.0f);
 	m_directionalLight.specular = vec3(1.0f);
@@ -43,8 +44,7 @@ bool LightingApplication::startup()
 
 	m_shader->attach();
 
-	m_shader->Bind();
-	m_shader->Unbind();
+	
 
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
@@ -95,7 +95,7 @@ void LightingApplication::draw()
 {
 	// wipe the screen to the background colour
 	clearScreen();
-	
+	m_shader->Bind();
 	// update perspective based on screen size
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, getWindowWidth() / (float)getWindowHeight(), 0.1f, 1000.0f);
 
@@ -115,26 +115,26 @@ void LightingApplication::draw()
 	glUniform3fv(lightUniform, 1, &m_directionalLight.direction[0]);
 
 	lightUniform = m_shader->getUniform("Ia");
-	glUniform3fv(lightUniform, 1, &m_ambientLight[0]);
-
-	matUniform = m_shader->getUniform("Ka");
-	glUniform3fv(matUniform, 1, &m_material.ambient[0]);
+	glUniform3fv(lightUniform, 1, &m_directionalLight.ambient[0]);
 
 	lightUniform = m_shader->getUniform("Id");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.diffuse[0]);
 
-	matUniform = m_shader->getUniform("Kd");
-	glUniform3fv(matUniform, 1, &m_material.diffuse[0]);
-
 	lightUniform = m_shader->getUniform("Is");
 	glUniform3fv(lightUniform, 1, &m_directionalLight.specular[0]);
 	
-	matUniform = m_shader->getUniform("Ks");
-	glUniform3fv(matUniform, 1, &m_material.specular[0]);
+	lightUniform = m_shader->getUniform("Ka");
+	
+	glUniform3fv(lightUniform, 1, &m_ambientLight[0]);
+	
+	lightUniform = m_shader->getUniform("Kd");
+	glUniform3fv(lightUniform, 1, &m_material.diffuse[0]);
+	
+	lightUniform = m_shader->getUniform("Ks");
+	glUniform3fv(lightUniform, 1, &m_material.specular[0]);
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 	
-	m_shader->Bind();
 
 	glUniformMatrix4fv(m_shader->getUniform("ProjectionViewModel"),1, false, glm::value_ptr(mvp));
 	

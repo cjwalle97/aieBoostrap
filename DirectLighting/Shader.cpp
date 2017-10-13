@@ -41,12 +41,13 @@ void Shader::load(const char * filename, unsigned int type)
 		m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(m_vertexShader, 1, (const char **)&m_vsSource, 0);
 		glCompileShader(m_vertexShader);
-
+		break;
 	case GL_FRAGMENT_SHADER:
 		m_fsSource = data;
 		m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(m_fragmentShader, 1, (const char **)&m_fsSource, 0);
 		glCompileShader(m_fragmentShader);
+		break;
 	}
 }
 
