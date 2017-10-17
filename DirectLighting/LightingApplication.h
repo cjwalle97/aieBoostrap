@@ -38,6 +38,7 @@ private:
 	Mesh* m_mesh;
 	DirectionalLight m_directionalLight;
 	vec4 m_ambientLight;
+	vec4 m_cameraTransform;
 	Material m_material;
 public:
 	LightingApplication();

@@ -49,7 +49,17 @@ bool LightingApplication::startup()
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 
 	// Gets the camera's transform
-	
+	// ( 1 0 0 *1 )
+	// ( 0 1 0 *0 )
+	// ( 0 0 1 *0 )
+	// ( 0 0 0 *1 )
+	float wX = m_viewMatrix[3][0];
+	float wY = m_viewMatrix[3][1];
+	float wZ = m_viewMatrix[3][2];
+	float wW = m_viewMatrix[3][3];
+	m_cameraTransform = vec4(wX, wY, wZ, wW);
+
+	//m_cameraTransform = m_viewMatrix[3];
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
@@ -136,6 +146,9 @@ void LightingApplication::draw()
 
 	lightUniform = m_shader->getUniform("a");
 	glUniform1f(lightUniform, m_material.specularPower);
+
+	lightUniform = m_shader->getUniform("cameraPosition");
+	glUniform4fv(lightUniform, 1, &m_cameraTransform[0]);
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 

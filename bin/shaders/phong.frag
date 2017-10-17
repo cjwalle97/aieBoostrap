@@ -27,7 +27,7 @@ void main()
 	vec3 L = normalize(direction.xyz);
 	vec3 N = normalize(vNormal.xyz);
 	vec3 R = reflect(L, N);
-	vec4 V = vPosition;
+	vec4 V = cameraPosition;
 
 	vec4 ambient = vec4(Ka, 1) * vec4(Ia, 1);
 	
@@ -38,5 +38,5 @@ void main()
 	vec4 specularColor = vec4(Ks, 1.0f) * vec4(Is, 1.0f);
 	vec4 specular = specularColor * specularTerm;
 
-	FragColor = ambient + diffuse + specular;
+	FragColor = specular;
 }
