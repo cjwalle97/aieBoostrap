@@ -25,14 +25,14 @@ bool LightingApplication::startup()
 	setBackgroundColour(0.25f, 0.25f, 0.25f);
 
 	m_directionalLight.direction = vec3(0.0f, 1.0f, 0.0f);
-	m_directionalLight.ambient = vec3(0.25f, 1.0f, 1.0f);
+	m_directionalLight.ambient = vec3(0.25f, 0.50f, 0.50f);
 	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
-	m_directionalLight.diffuse = vec3(1.0f, 0.25f, 1.0f);
+	m_directionalLight.diffuse = vec3(1.0f, 0.50f, 1.0f);
 	m_directionalLight.specular = vec3(1.0f);
 	vec3 m_ambientLight = vec3(0.25f);
 
-	m_material.diffuse = vec3(1.0f, 0.25f, 1.0f);
-	m_material.ambient = vec3(0.25f, 1.0f, 1.0f);
+	m_material.diffuse = vec3(1.0f, 0.50f, 1.0f);
+	m_material.ambient = vec3(0.25f, 0.50f, 0.50f);
 	m_material.specular = vec3(1.f);
 	m_material.specularPower = 64;
 
@@ -44,11 +44,12 @@ bool LightingApplication::startup()
 
 	m_shader->attach();
 
-	
-
 	// create simple camera transforms
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
+
+	// Gets the camera's transform
+	
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
@@ -63,6 +64,7 @@ void LightingApplication::shutdown()
 void LightingApplication::update(float deltaTime)
 {
 	float time = getTime();
+	time = 0;
 	m_directionalLight.direction = vec3(sinf(time), 0, cosf(time));
 
 	// wipe the gizmos clean for this frame
@@ -124,7 +126,6 @@ void LightingApplication::draw()
 	glUniform3fv(lightUniform, 1, &m_directionalLight.specular[0]);
 	
 	lightUniform = m_shader->getUniform("Ka");
-	
 	glUniform3fv(lightUniform, 1, &m_ambientLight[0]);
 	
 	lightUniform = m_shader->getUniform("Kd");
@@ -133,8 +134,10 @@ void LightingApplication::draw()
 	lightUniform = m_shader->getUniform("Ks");
 	glUniform3fv(lightUniform, 1, &m_material.specular[0]);
 
+	lightUniform = m_shader->getUniform("a");
+	glUniform1f(lightUniform, m_material.specularPower);
+
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
-	
 
 	glUniformMatrix4fv(m_shader->getUniform("ProjectionViewModel"),1, false, glm::value_ptr(mvp));
 	
@@ -165,7 +168,7 @@ void LightingApplication::generateSphere(unsigned int segments, unsigned int rin
 
 	Vertex* vertex = vertices;
 
-	for (unsigned int ring = 0; ring < (rings + 2); ++ring) 
+	for (unsigned int ring = 0; ring < (rings + 2); ++ring)
 	{
 		float r0 = glm::sin(ring * ringAngle);
 		float y0 = glm::cos(ring * ringAngle);
