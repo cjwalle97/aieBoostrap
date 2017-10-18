@@ -34,7 +34,7 @@ bool LightingApplication::startup()
 	m_material.diffuse = vec3(1.0f, 0.50f, 1.0f);
 	m_material.ambient = vec3(0.25f, 0.50f, 0.50f);
 	m_material.specular = vec3(1.f);
-	m_material.specularPower = 64;
+	m_material.specularPower = 32;
 
 	// initialise gizmo primitive counts
 	Gizmos::create(1000,1000,1000,1000);
@@ -53,11 +53,7 @@ bool LightingApplication::startup()
 	// ( 0 1 0 *0 )
 	// ( 0 0 1 *0 )
 	// ( 0 0 0 *1 )
-	float wX = m_viewMatrix[3][0];
-	float wY = m_viewMatrix[3][1];
-	float wZ = m_viewMatrix[3][2];
-	float wW = m_viewMatrix[3][3];
-	m_cameraTransform = vec4(wX, wY, wZ, wW);
+	m_cameraTransform = vec4(vec3(m_projectionMatrix[3]), 1.f);
 
 	//m_cameraTransform = m_viewMatrix[3];
 

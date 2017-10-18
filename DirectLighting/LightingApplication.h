@@ -37,9 +37,9 @@ private:
 	Shader* m_shader;
 	Mesh* m_mesh;
 	DirectionalLight m_directionalLight;
+	Material m_material;
 	vec4 m_ambientLight;
 	vec4 m_cameraTransform;
-	Material m_material;
 public:
 	LightingApplication();
 	virtual ~LightingApplication();
