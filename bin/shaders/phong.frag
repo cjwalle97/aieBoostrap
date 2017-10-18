@@ -38,5 +38,5 @@ void main()
 	vec4 specularColor = vec4(Ks, 1.0f) * vec4(Is, 1.0f);
 	vec4 specular = specularColor * specularTerm;
 
-	FragColor = specular;
+	FragColor = ambient + diffuse + specular;
 }

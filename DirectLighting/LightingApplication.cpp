@@ -27,11 +27,11 @@ bool LightingApplication::startup()
 	m_directionalLight.direction = vec3(0.0f, 1.0f, 0.0f);
 	m_directionalLight.ambient = vec3(0.25f, 0.50f, 0.50f);
 	m_directionalLight.normal = vec3(0.0f, 1.f, 0.0f);
-	m_directionalLight.diffuse = vec3(1.0f, 0.50f, 1.0f);
+	m_directionalLight.diffuse = vec3(1.0f, 0.20f, 1.0f);
 	m_directionalLight.specular = vec3(1.0f);
 	vec3 m_ambientLight = vec3(0.25f);
 
-	m_material.diffuse = vec3(1.0f, 0.50f, 1.0f);
+	m_material.diffuse = vec3(1.0f, 0.20f, 1.0f);
 	m_material.ambient = vec3(0.25f, 0.50f, 0.50f);
 	m_material.specular = vec3(1.f);
 	m_material.specularPower = 32;
@@ -48,14 +48,12 @@ bool LightingApplication::startup()
 	m_viewMatrix = glm::lookAt(vec3(10), vec3(0), vec3(0, 1, 0));
 	m_projectionMatrix = glm::perspective(glm::pi<float>() * 0.25f, 16.0f / 9.0f, 0.1f, 1000.0f);
 
-	// Gets the camera's transform
+	// Gets the camera's translation
 	// ( 1 0 0 *1 )
 	// ( 0 1 0 *0 )
 	// ( 0 0 1 *0 )
 	// ( 0 0 0 *1 )
-	m_cameraTransform = vec4(vec3(m_projectionMatrix[3]), 1.f);
-
-	//m_cameraTransform = m_viewMatrix[3];
+	m_cameraTranslation = vec4(vec3(m_projectionMatrix[3]), 1.f);
 
 	generateSphere(25, 25, VAO, VBO, IBO, INDEXCOUNT);
 
@@ -144,7 +142,7 @@ void LightingApplication::draw()
 	glUniform1f(lightUniform, m_material.specularPower);
 
 	lightUniform = m_shader->getUniform("cameraPosition");
-	glUniform4fv(lightUniform, 1, &m_cameraTransform[0]);
+	glUniform4fv(lightUniform, 1, &m_cameraTranslation[0]);
 
 	Gizmos::draw(m_projectionMatrix * m_viewMatrix);
 

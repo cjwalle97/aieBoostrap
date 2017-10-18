@@ -39,7 +39,7 @@ private:
 	DirectionalLight m_directionalLight;
 	Material m_material;
 	vec4 m_ambientLight;
-	vec4 m_cameraTransform;
+	vec4 m_cameraTranslation;
 public:
 	LightingApplication();
 	virtual ~LightingApplication();
